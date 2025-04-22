@@ -4,694 +4,1256 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Piyush Jain</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
+    <title>Piyush Jain - Portfolio v2</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Libraries -->
     <link href="css/aos.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="styles/main.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet"> <!-- Still using Bootstrap grid/utils, but overriding styles -->
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-color: #4ecdc4; /* Tealish */
+            --secondary-color: #f9a825; /* Yellow */
+            --dark-bg: #282c34;
+            --light-bg: #f8f9fa;
+            --text-dark: #212529;
+            --text-light: #f8f9fa;
+            --text-muted-dark: #6c757d;
+            --text-muted-light: #adb5bd;
+            --heading-font: 'Roboto Slab', serif;
+            --body-font: 'Poppins', sans-serif;
+            --card-bg: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            color: var(--dark-bg);
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            transition: padding 0.3s ease;
+        }
+        .navbar-brand {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
+        .navbar .nav-link {
+            font-family: var(--body-font);
+            font-weight: 600;
+            color: var(--text-dark) !important;
+            margin: 0 10px;
+            padding: 5px 0 !important;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+        }
+        .navbar .nav-link:hover, .navbar .nav-link.active {
+            color: var(--primary-color) !important;
+            border-bottom-color: var(--primary-color);
+        }
+        .navbar-toggler {
+            border-color: var(--primary-color);
+        }
+        .navbar-toggler-icon {
+             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(78, 205, 196, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .navbar-shrink {
+             padding: 0.5rem 0;
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 120px 0 80px 0;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Optional: Subtle background pattern */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* background: url('path/to/subtle-pattern.png') repeat; */
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .hero-content {
+             position: relative; /* Ensure content is above pseudo-element */
+             z-index: 1;
+        }
+
+        .profile-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 6px solid var(--primary-color);
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            min-height: 2.5rem; /* For text slide */
+        }
+
+        .hero-buttons .btn {
+            font-family: var(--body-font);
+            font-weight: 600;
+            padding: 12px 35px;
+            border-radius: 50px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border-width: 2px;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--dark-bg);
+        }
+        .btn-primary-custom:hover {
+            background-color: transparent;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        .btn-secondary-custom {
+            background-color: transparent;
+            border-color: var(--text-muted-light);
+            color: var(--text-muted-light);
+        }
+         .btn-secondary-custom:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--dark-bg);
+        }
+
+        .social-links-hero a {
+            color: var(--text-muted-light);
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .social-links-hero a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Section Styling --- */
+        .section {
+            padding: 100px 0;
+        }
+        .section-dark {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+        .section-dark h2, .section-dark h3, .section-dark h4, .section-dark h5, .section-dark h6 {
+             color: var(--text-light);
+        }
+        .section-grey {
+             background-color: #e9ecef; /* Slightly darker than light-bg */
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.8rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        /* Title underline */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+        .section-dark .section-title::after {
+            background-color: var(--primary-color); /* Keep highlight color consistent */
+        }
+
+        /* --- About Section --- */
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .about-info {
+             background-color: var(--card-bg);
+             padding: 30px;
+             border-radius: 8px;
+             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .about-info strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .about-info p {
+             margin-bottom: 15px;
+        }
+        .skills-list {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .skills-list .badge {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+            padding: 8px 15px;
+            margin: 5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        /* --- Experience Section --- */
+        .experience-timeline {
+            position: relative;
+            margin: 0 auto;
+            padding: 40px 0;
+            max-width: 1000px;
+        }
+         /* The actual timeline line */
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e9ecef;
+            margin-left: -2px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+            margin-bottom: 30px; /* Space between items */
+        }
+        /* Place items on left or right */
+        .timeline-item.left {
+            left: 0;
+            padding-right: 50px; /* Space from center line */
+            text-align: right;
+        }
+        .timeline-item.right {
+            left: 50%;
+            padding-left: 50px; /* Space from center line */
+            text-align: left;
+        }
+        /* The circle markers */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            right: -9px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item.left::after {
+             left: -9px;
+        }
+        .timeline-item.right::after {
+             left: -9px; /* Override */
+        }
+         /* The content */
+        .timeline-content {
+            padding: 25px 30px;
+            background: var(--card-bg);
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+         .timeline-content:hover {
+            transform: translateY(-5px);
+         }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.9rem;
+        }
+        .timeline-title {
+             font-size: 1.4rem;
+             margin-bottom: 8px;
+             font-weight: 700;
+             color: var(--dark-bg);
+        }
+        .timeline-company {
+             font-size: 1.1rem;
+             margin-bottom: 15px;
+             font-weight: 600;
+             color: var(--text-muted-dark);
+        }
+        .timeline-description {
+             font-size: 0.95rem;
+             line-height: 1.6;
+        }
+        .timeline-description br {
+            margin-bottom: 8px; /* Add space after line breaks */
+            display: block; /* Make br work like paragraphs */
+            content: " ";
+        }
+        /* Responsive timeline */
+        @media screen and (max-width: 768px) {
+            .experience-timeline::before {
+                left: 15px; /* Move line to the left */
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px; /* Adjust padding */
+                padding-right: 15px;
+                text-align: left;
+                margin-bottom: 30px;
+            }
+            .timeline-item.left, .timeline-item.right {
+                left: 0%; /* Reset left positioning */
+            }
+            .timeline-item.left::after, .timeline-item.right::after {
+                left: 6px; /* Position circle on the line */
+            }
+            .timeline-item.left {
+                 text-align: left;
+            }
+         }
+
+        /* --- Projects Section --- */
+        .project-filters {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .project-filters button {
+            background: none;
+            border: 2px solid var(--text-muted-dark);
+            color: var(--text-muted-dark);
+            padding: 8px 20px;
+            margin: 5px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .project-filters button.active, .project-filters button:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--dark-bg);
+        }
+
+        .project-card-new {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; /* For equal height */
+            display: flex;
+            flex-direction: column;
+        }
+         .project-card-new:hover {
+             transform: translateY(-8px);
+             box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+         }
+
+        .project-card-new img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .project-card-new .card-body {
+            padding: 25px;
+            flex-grow: 1; /* Takes remaining space */
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card-new .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        .project-card-new .card-text {
+            font-size: 0.95rem;
+            flex-grow: 1; /* Text takes space */
+            margin-bottom: 15px;
+        }
+        .project-card-new .card-tags {
+             margin-top: auto; /* Push tags to bottom */
+             padding-top: 15px;
+             border-top: 1px solid #eee;
+        }
+        .project-card-new .card-tags .badge {
+             background-color: #e9ecef;
+             color: var(--text-muted-dark);
+             padding: 5px 10px;
+             margin: 3px;
+             font-size: 0.8rem;
+             font-weight: 500;
+             border-radius: 4px;
+        }
+        .project-card-new .card-tags strong {
+             font-weight: 600;
+             color: var(--dark-bg);
+             margin-right: 5px;
+        }
+
+        /* --- Education & Certs Section --- */
+        .education-item, .certification-item {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: box-shadow 0.3s ease;
+        }
+        .education-item:hover, .certification-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap; /* Wrap if needed */
+        }
+        .item-title {
+             font-size: 1.5rem;
+             margin: 0;
+             color: var(--primary-color);
+        }
+        .item-date {
+             font-weight: 600;
+             color: var(--text-muted-dark);
+             font-size: 0.9rem;
+             background-color: #e9ecef;
+             padding: 5px 10px;
+             border-radius: 4px;
+        }
+        .item-institution {
+            font-weight: 600;
+            color: var(--dark-bg);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .item-description {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        .item-description strong {
+            color: var(--dark-bg);
+        }
+
+        /* --- References Section --- */
+        .reference-carousel .carousel-item {
+            background-color: var(--card-bg);
+            padding: 50px 60px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+        .reference-carousel .carousel-indicators {
+            bottom: -50px;
+        }
+        .reference-carousel .carousel-indicators li {
+            background-color: var(--text-muted-dark);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 5px;
+            border: none;
+        }
+        .reference-carousel .carousel-indicators .active {
+            background-color: var(--primary-color);
+        }
+        .reference-img img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            border: 4px solid var(--primary-color);
+        }
+        .reference-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-muted-dark);
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+        }
+        .reference-author {
+            font-weight: 700;
+            color: var(--dark-bg);
+            font-size: 1.1rem;
+        }
+        .reference-title {
+            font-size: 0.9rem;
+            color: var(--text-muted-dark);
+        }
+
+        /* --- Contact Section --- */
+        .contact-section {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 80px 0;
+        }
+         .contact-section .section-title {
+            color: var(--text-light);
+         }
+         .contact-section .section-title::after {
+            background-color: var(--primary-color);
+         }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            color: var(--text-muted-light);
+        }
+        .contact-info-item i {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-right: 20px;
+            width: 40px; /* Fixed width for alignment */
+            text-align: center;
+        }
+        .contact-info-item p {
+            margin-bottom: 0;
+            font-size: 1.1rem;
+        }
+         .contact-info-item p strong {
+             color: var(--text-light);
+             display: block;
+             font-size: 1.2rem;
+             margin-bottom: 3px;
+         }
+         .contact-info-item a {
+             color: var(--text-muted-light);
+             text-decoration: none;
+             transition: color 0.3s ease;
+         }
+          .contact-info-item a:hover {
+             color: var(--primary-color);
+          }
+        .social-links-contact a {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            margin: 0 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1.2rem;
+        }
+        .social-links-contact a:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #22252a; /* Slightly different dark */
+            color: var(--text-muted-light);
+            padding: 25px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #6fe1d9;
+        }
+
+        /* --- AOS Adjustments --- */
+        [data-aos] {
+            opacity: 0;
+            transition-property: transform, opacity;
+        }
+        /* Example: Adjust default AOS fade-up distance */
+        [data-aos="fade-up"] {
+          transform: translate3d(0, 50px, 0);
+        }
+
+    </style>
   </head>
-  <body id="top">
-    <header>
-      <div class="profile-page sidebar-collapse">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400">
-          <div class="container">
-            <div class="navbar-translate"><a class="navbar-brand" href="#" rel="tooltip">PIYUSH MAHENDRA KUMAR</a>
-              <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-bar bar1"></span><span class="navbar-toggler-bar bar2"></span><span class="navbar-toggler-bar bar3"></span></button>
-            </div>
-            <div class="collapse navbar-collapse justify-content-end" id="navigation">
-              <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link smooth-scroll" href="#about">About</a></li>
-		<li class="nav-item"><a class="nav-link smooth-scroll" href="#experience">Experience</a></li>
-                <li class="nav-item"><a class="nav-link smooth-scroll" href="#projects">Projects</a></li>
-                <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <div class="page-content">
-      <div>
-<div class="profile-page">
-  <div class="wrapper">
-    <div class="page-header page-header-small" filter-color="green">
-      <div class="page-header-image" data-parallax="true" style="background-image: url('images/back.jpg');"></div>
+  <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="80">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light" id="navbar-main">
       <div class="container">
-        <div class="content-center">
-          <div class="cc-profile-image"><a href="#"><img src="images/piyushpic.jpg" alt="Image"/></a></div>
-          <div class="h2 title">Piyush Mahendra Kumar</div>
-          <p class="category text-white" id="textslide">Deep Learning</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="https://drive.google.com/file/d/1XBHFU8Y-dl3oGs1Gg7Qez4eg4u9DzNhI/view?usp=sharing" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">View CV</a>
-        </div>
-      </div>
-      <div class="section">
-        <div class="container">
-          <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.linkedin.com/in/piyush0511/" rel="tooltip" title="Connect me on LinkedIn"><i class="fa fa-linkedin"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="https://github.com/piyush0511" rel="tooltip" title="Place where all my code resides"><i class="fa fa-github"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="mailto:piyush.pungalia05@gmail.com" rel="tooltip" title="Write me a Mail"><i class="fa fa-envelope"></i></a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="section" id="about" style="background-color: #fafbf9; padding-bottom: 40px;">
-  <div class="container">
-    <div class="card" data-aos="fade-up" data-aos-offset="10">
-      <div class="row">
-        <div class="col-lg-6 col-md-12">
-          <div class="card-body">
-            <div class="h4 mt-0 title">About</div>
-            <p>Hello! Myself Piyush Jain. I am a Deeplearning, Computer Vision and Robotics Engineer.</p>
-            <p>I love the idea of exploring how a MACHINE is LEARNING and EVOLVING and how I can use my adaptive problem-solving skills to help these ARTIFICAL brains multi-fold their INTELLIGENCE.</br>
-These ARTIFICIAL brains never cease to amaze me, especially with the advent of ARTIFICIAL INTELLIGENCE, my fascination for these  machines has grown manifold. </br>
-So if you've opportunities for me, or have crazy product ideas to discuss, always feel free to reach me via email. Check out my resume. I'd be very happy to connect.  </p>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-          <div class="card-body">
-            <div class="h4 mt-0 title">Basic Information</div>
-            <div class="row">
-              <div class="col-sm-4"><strong class="text-uppercase">Age:</strong></div>
-              <div class="col-sm-8">24</div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Email:</strong></div>
-              <div class="col-sm-8">piyush.pungalia05@gmail.com</div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Phone:</strong></div>
-              <div class="col-sm-8">+358 40 1921255</div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
-              <div class="col-sm-8">Berlin, Germany</div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Language:</strong></div>
-              <div class="col-sm-8">English, Hindi, German</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="section" id="experience">
-  <div class="container cc-experience">
-    <div class="h4 text-center mb-4 title">Work Experience</div>
-	       <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-experience-header">
-            <p>Oct 2021 - Present</p>
-            <div class="h5">Machine Learning Operations Engineer </div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">6th Sense Innovations</div>
-            <p>• Developed a RAG - Mixtral-like bot leveraging OpenAI's GPT-4 technology, providing specialized parking assistance with enhanced user interaction and efficiency.
-	    <br>• Enhanced multi people detection and tracking algorithms, optimizing model deployment across 40+ cameras. Smart grocery stores akin to Amazon go.
-            <br>• Managed end-to-end model development lifecycle from data preparation to deployment. Deployed to 4 locations spread across Finland and Sweden.
-          </div>
-        </div>
-      </div>
-    </div>
-	       <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-experience-header">
-            <p>May 2021 - Sep 2021</p>
-            <div class="h5">Machine Learning Researcher</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Buddi.ai</div>
-            <p>• Expanded canonicalization algorithm by 10x handling over 15 million data points and reduced the search time by 5x using concept mapper.
-            <br>• Architected, maintanied and remodeled a whole end to end project in PLAY framework servicing over 100+ customers.
-	    <br>• Engineered a Auto correct algorithm using Seq-Seq LSTM model and currently installed in product servicing 200+ clients.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-     <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-experience-header">
-            <p>Oct 2020 - March 2021</p>
-            <div class="h5">Deep Learning Research Assistant</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">CAIR, Indian Defense - DRDO</div>
-            <p>• Implemented visual perception and deployed to a robot for it to traverse through buildings and find fire exits.
-            <br>• Direction and angle of arrows were detected using Retina-Net with an accuracy of 87.6%.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-<div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-experience-header">
-            <p>June 2020 - Nov 2020</p>
-            <div class="h5">Computer Vision Junior R&D</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Orbitshifters Inc</div>
-            <p>• Provided analytics on sports like Boxing, Diving, and Football for US Olympics using computer vision.
-		    <br>• Improved the accuracy of pose estimation by 4.22% for combat sports analysis by using Detectron2 and Denspose.
-            <br>• Implemented various image processing algorithms on boxing to obtain stance classification, distance travelled, player
-detection, with an accuracy of 93.4%.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-	      <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-experience-header">
-            <p>July 2020 - Aug 2020</p>
-            <div class="h5">AI Course Developer</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Diya Labs</div>
-            <p>• Developed 12 chapter’s of tutorials and content using cognimates and implemented programs in the field of CV and NLP.
-            <br>• Course has been taken by 250+ students so far with 4.65 average rating.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-experience-header">
-            <p>May 2019 - Feb 2020</p>
-            <div class="h5">Junior Software & Hardware Developer</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Enarxi Technologies</div>
-            <p>• Developed a full sized Smart ICU bed with python and HTML running on raspberry pi and was deployed in a hospital.
-		    <br>•Designed Smart blub using EasyEDA and Automatic Plant watering system using C. Performed testing, documentation,
-verification, productization and maintenance of algorithms along with s/w modules that use them.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-experience-header">
-            <p>June 2019 - July 2019</p>
-            <div class="h5">Hardware Intern</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Inesh Smart Systems</div>
-            <p>-Development of smart energy meters.</br>
--Research of quantitative stratergies in production of a product.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="section">
-  <div class="container cc-education">
-    <div class="h4 text-center mb-4 title">Education</div>
-	      <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-education-header">
-            <p>2021 - 2023</p>
-            <div class="h5">Masters</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Machine Learning and Autonomous Systems</div>
-            <p class="category">Technische Universit ̈at Berlin and Aalto Univeristy</p>
-            <p>Courses : </br>
-Machine Learning, Natural Language Processing, Computer Vision, Robotics, Parallel Programming, Deep learning</p></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-education-header">
-            <p>2017 - 2021</p>
-            <div class="h5">Bachelor's Degree</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Bachelor of Electronics and Communication</div>
-            <p class="category">Sri Venkateshwara College of Engineering</p>
-            <p> College bolstered me to build better knowledge in areas of Robotics and Embedded Systems. Gave me better skills on writing, communicating, studying, and critical thinking.</br>
-Courses : </br>
-Digital Image Processing, Digital Signal Processing, Data
-Structures, Robotics, Statistics</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<div class="section" id="projects">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 ml-auto mr-auto">
-        <div class="h4 text-center mb-4 title">Projects</div>
-        <div class="nav-align-center">
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#deepLearning" role="tablist" rel="tooltip" title="Deep Learning"> <i class="fa fa-desktop" aria-hidden="true"></i></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#computerVision" role="tablist" rel="tooltip" title="Computer Vision"> <i class="fa fa-eye" aria-hidden="true"></i> </a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#robotics" role="tablist" rel="tooltip" title="Robotics"> <i class="fa fa-microchip" aria-hidden="true"></i> </a></li>
+        <a class="navbar-brand" href="#top">PIYUSH M. KUMAR</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+            <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           </ul>
         </div>
       </div>
-    </div>
-    <div class="tab-content gallery mt-5">
-      <div class="tab-pane active" id="deepLearning">
-        <div class="ml-auto mr-auto">
-          <div class="card-columns">
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  RAG Application for Chartered Accountants
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container hero-content">
+            <div data-aos="zoom-in" data-aos-duration="1000">
+                <div class="profile-image">
+                    <img src="images/piyushpic.jpg" alt="Piyush Mahendra Kumar"/>
                 </div>
-                <img src="images/ca.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">Developed a system to assist chartered accountants with summaries, query responses, and document retrieval. Enhanced efficiency and accuracy in handling complex accounting queries and document retrieval by leveraging embedding-based search. </p>
+                <h1 class="hero-title">Piyush Mahendra Kumar</h1>
+                <p class="hero-subtitle" id="textslide">Deep Learning Engineer</p>
+                <div class="hero-buttons mb-4">
+                    <a class="btn btn-primary-custom smooth-scroll" href="#contact">Hire Me</a>
+                    <a class="btn btn-secondary-custom" href="https://drive.google.com/file/d/1XBHFU8Y-dl3oGs1Gg7Qez4eg4u9DzNhI/view?usp=sharing" target="_blank" rel="noopener noreferrer">View CV</a>
                 </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Tools Used : Langchain, OpenAI, Streamlit, SQL</strong></li>
-                  
-                </ul>
+                 <div class="social-links-hero">
+                    <a href="https://www.linkedin.com/in/piyush0511/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                    <a href="https://github.com/piyush0511" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa fa-github"></i></a>
+                    <a href="mailto:piyush.pungalia05@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+                </div>
             </div>
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-              <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                Human Activity Recognition
-              </div>
-              <img src="images/HAR.jpeg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text text-justify" style="padding: 20px;">The main task was to build a model that predicts the human activities such as Walking, Sitting, Standing or Laying on the basis of data collected from sensors (Accelerometer and Gyroscope) in a smartphone. ‘3-axial linear acceleration' from accelerometer & '3-axial angular velocity' using Flutter and stored it on Firebase. Performed various algorithms like Random Forest, Convolution Networks and Convlstm2d to measure the accuracy .</p>
-              </div>
-              <ul class="list-group list-group-flush" style="padding: 20px;">
-                <li class="list-group-item"><strong>Skills Used : Keras, Sklearn, Numpy, Matplotlib, Python </strong></li>
-                
-              </ul>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="about-content">
+                        <h3 class="mb-3">Hello! I'm Piyush Jain.</h3>
+                        <p>A passionate and results-driven <strong>Deep Learning, Computer Vision, and Robotics Engineer</strong> based in Berlin, Germany.</p>
+                        <p>My fascination lies in the intricate dance of machines learning and evolving. I thrive on applying adaptive problem-solving techniques to significantly advance artificial intelligence capabilities. The constant innovation, especially within AI, never ceases to amaze and inspire me.</p>
+                        <p>I'm actively seeking challenging opportunities where I can contribute my expertise and collaborate on groundbreaking projects. If you have an exciting role or innovative product ideas to discuss, please don't hesitate to connect!</p>
+                    </div>
+                </div>
+                <div class="col-lg-5" data-aos="fade-left" data-aos-delay="100">
+                    <div class="about-info">
+                        <p><strong>Age:</strong> 24</p>
+                        <p><strong>Email:</strong> <a href="mailto:piyush.pungalia05@gmail.com" class="text-primary">piyush.pungalia05@gmail.com</a></p>
+                        <p><strong>Phone:</strong> <a href="tel:+358401921255" class="text-primary">+358 40 1921255</a></p>
+                        <p><strong>Location:</strong> Berlin, Germany</p>
+                        <p><strong>Languages:</strong> English, Hindi, German (Basic)</p>
+                    </div>
+                </div>
             </div>
-		  
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  AI Powered Hydroponics
-                </div>
-                <img src="images/hydro.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">The main task was to build a Hydroponic model that could grow plants. LSTM was used to predict the outcome of the plant, LeNet5 was used to detect if the fruit is rotten or not. NodeMCU and Adafruit were used to automate the whole system.</p>
-                </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Skills Used : Pattern Recognition, LSTM, Python, IOT</strong></li>
-                  
-                </ul>
+             <!-- Skills -->
+            <div class="skills-list mt-5" data-aos="fade-up" data-aos-delay="200">
+                <h4 class="text-center mb-4">Key Skills</h4>
+                <span class="badge">Deep Learning</span>
+                <span class="badge">Computer Vision</span>
+                <span class="badge">Robotics</span>
+                <span class="badge">MLOps</span>
+                <span class="badge">Python</span>
+                <span class="badge">PyTorch</span>
+                <span class="badge">TensorFlow/Keras</span>
+                <span class="badge">OpenCV</span>
+                <span class="badge">Langchain</span>
+                <span class="badge">OpenAI API</span>
+                <span class="badge">SQL</span>
+                <span class="badge">Docker</span>
+                <span class="badge">Git</span>
+                <span class="badge">C/C++</span>
+                <span class="badge">IoT</span>
+                <span class="badge">Embedded Systems</span>
+                <span class="badge">RAG</span>
+                <span class="badge">LLMs</span>
             </div>
-		  
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  Composing Music
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section section-grey" id="experience">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Work Experience</h2>
+            <div class="experience-timeline">
+                <!-- Item 1 -->
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Oct 2021 - Present</span>
+                        <h4 class="timeline-title">MLOps Engineer</h4>
+                        <h5 class="timeline-company">6th Sense Innovations</h5>
+                        <p class="timeline-description">• Developed RAG bot (GPT-4) for parking assistance.<br>• Enhanced multi-person detection/tracking for 40+ cameras in smart stores.<br>• Managed full model lifecycle (data -> deployment) in Finland/Sweden.</p>
+                    </div>
                 </div>
-                <img src="images/music.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">The main task was to build a model that generates new keyboard music notes based on training data music. Notes and Chords were converted to word vectors which were fed into a LSTM network. </p>
+                <!-- Item 2 -->
+                 <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <span class="timeline-date">May 2021 - Sep 2021</span>
+                        <h4 class="timeline-title">Machine Learning Researcher</h4>
+                        <h5 class="timeline-company">Buddi.ai</h5>
+                        <p class="timeline-description">• Scaled canonicalization algorithm 10x (15M+ data points), reduced search time 5x.<br>• Architected/maintained PLAY framework project (100+ customers).<br>• Engineered Seq-Seq LSTM auto-correct algorithm (200+ clients).</p>
+                    </div>
                 </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Skills Used : Keras, Pandas, MIDI, Python </strong></li>
-                  
-                </ul>
+                <!-- Item 3 -->
+                 <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Oct 2020 - Mar 2021</span>
+                        <h4 class="timeline-title">Deep Learning Research Assistant</h4>
+                        <h5 class="timeline-company">CAIR, Indian Defense - DRDO</h5>
+                        <p class="timeline-description">• Implemented/deployed visual perception for robot navigation (fire exit finding).<br>• Detected arrow direction/angle with Retina-Net (87.6% accuracy).</p>
+                    </div>
+                </div>
+                 <!-- Item 4 -->
+                 <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Jun 2020 - Nov 2020</span>
+                        <h4 class="timeline-title">Computer Vision Junior R&D</h4>
+                        <h5 class="timeline-company">Orbitshifters Inc</h5>
+                        <p class="timeline-description">• Provided CV analytics (Boxing, Diving, Football) for US Olympics.<br>• Improved pose estimation accuracy by 4.22% (Detectron2, DensePose).<br>• Implemented boxing analytics (stance, distance, detection) - 93.4% accuracy.</p>
+                    </div>
+                </div>
+                 <!-- Item 5 -->
+                 <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Jul 2020 - Aug 2020</span>
+                        <h4 class="timeline-title">AI Course Developer</h4>
+                        <h5 class="timeline-company">Diya Labs</h5>
+                        <p class="timeline-description">• Developed 12 chapters (CV/NLP tutorials) using Cognimates.<br>• Course taken by 250+ students (4.65 avg rating).</p>
+                    </div>
+                </div>
+                <!-- Item 6 -->
+                 <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <span class="timeline-date">May 2019 - Feb 2020</span>
+                        <h4 class="timeline-title">Junior Software & Hardware Developer</h4>
+                        <h5 class="timeline-company">Enarxi Technologies</h5>
+                        <p class="timeline-description">• Developed Smart ICU bed (Python/HTML/RPi), deployed in hospital.<br>• Designed Smart bulb (EasyEDA) & Auto Plant watering system (C).<br>• Handled testing, documentation, productization.</p>
+                    </div>
+                </div>
+                <!-- Item 7 -->
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                         <span class="timeline-date">Jun 2019 - Jul 2019</span>
+                         <h4 class="timeline-title">Hardware Intern</h4>
+                         <h5 class="timeline-company">Inesh Smart Systems</h5>
+                         <p class="timeline-description">• Developed smart energy meters.<br>• Researched quantitative production strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Projects Showcase</h2>
+            <!-- Filter Buttons -->
+            <div class="project-filters" data-aos="fade-up" data-aos-delay="100">
+                <button type="button" class="btn filter-btn active" data-filter="all">All</button>
+                <button type="button" class="btn filter-btn" data-filter="dl">Deep Learning</button>
+                <button type="button" class="btn filter-btn" data-filter="cv">Computer Vision</button>
+                <button type="button" class="btn filter-btn" data-filter="robotics">Robotics</button>
             </div>
 
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-              <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                Movie Recommendation
-              </div>
-              <img src="images/netflix.jpeg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text text-justify" style="padding: 20px;">The main task was to devise the best algorithm to predict user ratings for films. I designed a Restricted Boltzman Machine from scratch using python and predict if a person likes the movie or not.</p>
-              </div>
-              <ul class="list-group list-group-flush" style="padding: 20px;">
-                <li class="list-group-item"><strong>Skills Used : Pytorch, Numpy, Mathplotlib, Pandas, Python</strong></li>
-                
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="tab-pane" id="computerVision" role="tabpanel">
-        <div class="ml-auto mr-auto">
-          <div class="card-columns">
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-              <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                Tableify
-              </div>
-              <img src="images/tableify.jpeg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text text-justify" style="padding: 20px;">The main task was to build a program that can convert contents present in an image to excel sheet(csv format). Used OpenCV's wide range of tools like contors to find the table and performed OCR using tesseract API. To know the whole story behind my motivation to build this program <a href="https://www.linkedin.com/feed/update/urn:li:activity:6658307304057868288/">Click Here.</a></p>
-              </div>
-              <ul class="list-group list-group-flush" style="padding: 20px;">
-                <li class="list-group-item"><strong>Skills Used : OpenCV, Numpy, CSV, Python, API</strong></li>
-                
-              </ul>
-            </div>
-
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  Covid-19 Based Projects
+            <div class="row project-gallery">
+                <!-- Project Item 1: RAG App (DL) -->
+                <div class="col-lg-4 col-md-6 project-item dl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card project-card-new">
+                        <img src="images/ca.jpg" class="card-img-top" alt="RAG Application">
+                        <div class="card-body">
+                            <h5 class="card-title">RAG Application for CAs</h5>
+                            <p class="card-text">AI assistant for chartered accountants providing summaries, query answers, and document retrieval via embedding search.</p>
+                            <div class="card-tags">
+                                <span class="badge">Langchain</span> <span class="badge">OpenAI</span> <span class="badge">Streamlit</span> <span class="badge">SQL</span> <span class="badge">RAG</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <img src="images/mask.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">The main task was to detect whether a person is wearing a mask of not and if people are following social distancing. Transfer learning was performed on MobilenetV2 using 1400 images(equally distributed). For infernce, face was detected using a caffe resnet model and trained model was applied to face ROI.</p>
+                 <!-- Project Item 2: HAR (DL) -->
+                <div class="col-lg-4 col-md-6 project-item dl" data-aos="fade-up" data-aos-delay="250">
+                    <div class="card project-card-new">
+                        <img src="images/HAR.jpeg" class="card-img-top" alt="Human Activity Recognition">
+                        <div class="card-body">
+                            <h5 class="card-title">Human Activity Recognition</h5>
+                            <p class="card-text">Predicts activities (Walking, Sitting etc.) from smartphone sensor data using ML/DL models (RF, CNN, ConvLSTM).</p>
+                            <div class="card-tags">
+                                <span class="badge">Keras</span> <span class="badge">Scikit-learn</span> <span class="badge">Python</span> <span class="badge">Sensors</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Skills Used : Transfer Learning, Caffe, OpenCV, Python</strong></li>
-                  
-                </ul>
+                 <!-- Project Item 3: Hydroponics (DL/CV/IoT) -->
+                <div class="col-lg-4 col-md-6 project-item dl cv robotics" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card project-card-new">
+                        <img src="images/hydro.jpg" class="card-img-top" alt="AI Hydroponics">
+                        <div class="card-body">
+                            <h5 class="card-title">AI Powered Hydroponics</h5>
+                            <p class="card-text">Automated hydroponics system using LSTM for yield prediction and LeNet5 for fruit quality detection.</p>
+                            <div class="card-tags">
+                                <span class="badge">LSTM</span> <span class="badge">CNN</span> <span class="badge">Python</span> <span class="badge">IoT</span> <span class="badge">NodeMCU</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 4: Music (DL) -->
+                <div class="col-lg-4 col-md-6 project-item dl" data-aos="fade-up" data-aos-delay="350">
+                    <div class="card project-card-new">
+                        <img src="images/music.jpeg" class="card-img-top" alt="Music Composition">
+                        <div class="card-body">
+                            <h5 class="card-title">AI Music Composition</h5>
+                            <p class="card-text">Generates novel keyboard music sequences using an LSTM network trained on note and chord embeddings.</p>
+                            <div class="card-tags">
+                                <span class="badge">Keras</span> <span class="badge">LSTM</span> <span class="badge">MIDI</span> <span class="badge">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project Item 5: Movie Rec (DL) -->
+                <div class="col-lg-4 col-md-6 project-item dl" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card project-card-new">
+                        <img src="images/netflix.jpeg" class="card-img-top" alt="Movie Recommendation">
+                        <div class="card-body">
+                            <h5 class="card-title">Movie Recommendation System</h5>
+                            <p class="card-text">Predicts user movie ratings using a Restricted Boltzmann Machine (RBM) built from scratch.</p>
+                            <div class="card-tags">
+                                <span class="badge">PyTorch</span> <span class="badge">RBM</span> <span class="badge">Python</span> <span class="badge">Recommender</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 6: Tableify (CV) -->
+                <div class="col-lg-4 col-md-6 project-item cv" data-aos="fade-up" data-aos-delay="450">
+                    <div class="card project-card-new">
+                        <img src="images/tableify.jpeg" class="card-img-top" alt="Tableify">
+                        <div class="card-body">
+                            <h5 class="card-title">Tableify: Image to Excel</h5>
+                            <p class="card-text">Extracts tabular data from images and converts it to CSV format using OpenCV and Tesseract OCR.</p>
+                             <div class="card-tags">
+                                <span class="badge">OpenCV</span> <span class="badge">Tesseract</span> <span class="badge">Python</span> <span class="badge">OCR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 7: Covid (CV) -->
+                <div class="col-lg-4 col-md-6 project-item cv" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card project-card-new">
+                        <img src="images/mask.jpeg" class="card-img-top" alt="Covid Mask Detection">
+                        <div class="card-body">
+                            <h5 class="card-title">COVID-19 Safety Monitor</h5>
+                            <p class="card-text">Detects face masks and social distancing in real-time using MobileNetV2 and Caffe ResNet.</p>
+                             <div class="card-tags">
+                                <span class="badge">Transfer Learning</span> <span class="badge">OpenCV</span> <span class="badge">Caffe</span> <span class="badge">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 8: Car Gen (CV/DL) -->
+                <div class="col-lg-4 col-md-6 project-item cv dl" data-aos="fade-up" data-aos-delay="550">
+                    <div class="card project-card-new">
+                        <img src="images/car.jpeg" class="card-img-top" alt="Car Design Generation">
+                        <div class="card-body">
+                            <h5 class="card-title">Car Design Generation (GAN)</h5>
+                            <p class="card-text">Generates unique car designs using Generative Adversarial Networks (GANs).</p>
+                             <div class="card-tags">
+                                <span class="badge">GAN</span> <span class="badge">Keras</span> <span class="badge">Python</span> <span class="badge">Generative AI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project Item 9: Edge AI (CV/IoT) -->
+                <div class="col-lg-4 col-md-6 project-item cv robotics" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card project-card-new">
+                        <img src="images/udacity.jpeg" class="card-img-top" alt="Intel Edge AI">
+                        <div class="card-body">
+                            <h5 class="card-title">Intel Edge AI Projects</h5>
+                            <p class="card-text">Developed edge applications (People Counter, Smart Queue) using OpenVINO on various hardware (FPGA, VPU, GPU, CPU).</p>
+                             <div class="card-tags">
+                                <span class="badge">OpenVINO</span> <span class="badge">Edge AI</span> <span class="badge">MQTT</span> <span class="badge">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 10: Shelves (CV) -->
+                 <div class="col-lg-4 col-md-6 project-item cv" data-aos="fade-up" data-aos-delay="650">
+                    <div class="card project-card-new">
+                        <img src="images/shelves.jpg" class="card-img-top" alt="Shelves Product Detector">
+                        <div class="card-body">
+                            <h5 class="card-title">Retail Shelf Product Detector</h5>
+                            <p class="card-text">Detects and localizes products on retail shelves for FMCG analytics using SSD MobileNet V2.</p>
+                             <div class="card-tags">
+                                <span class="badge">TensorFlow</span> <span class="badge">Object Detection</span> <span class="badge">OpenCV</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 11: Spy Bot (Robotics/CV/IoT) -->
+                <div class="col-lg-4 col-md-6 project-item robotics cv" data-aos="fade-up" data-aos-delay="700">
+                    <div class="card project-card-new">
+                        <img src="images/spy.jpeg" class="card-img-top" alt="SPY Bot">
+                        <div class="card-body">
+                            <h5 class="card-title">SPY Bot</h5>
+                            <p class="card-text">All-terrain military bot with VR view, weapon detection, people counting, and self-destruct features.</p>
+                            <div class="card-tags">
+                                <span class="badge">Robotics</span> <span class="badge">VR</span> <span class="badge">IoT</span> <span class="badge">Python</span> <span class="badge">C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 12: Vision Impaired (Robotics/CV/IoT) -->
+                 <div class="col-lg-4 col-md-6 project-item robotics cv" data-aos="fade-up" data-aos-delay="750">
+                    <div class="card project-card-new">
+                        <img src="images/vi.jpeg" class="card-img-top" alt="Vision for Impaired">
+                        <div class="card-body">
+                            <h5 class="card-title">Vision Assistant for Impaired</h5>
+                            <p class="card-text">System using YOLOV2 object detection to describe surroundings to visually impaired users via audio.</p>
+                            <div class="card-tags">
+                                <span class="badge">Computer Vision</span> <span class="badge">YOLO</span> <span class="badge">Embedded</span> <span class="badge">IoT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Item 13: Home Automation (Robotics/CV/IoT) -->
+                 <div class="col-lg-4 col-md-6 project-item robotics cv" data-aos="fade-up" data-aos-delay="800">
+                    <div class="card project-card-new">
+                        <img src="images/home.jpg" class="card-img-top" alt="Home Automation">
+                        <div class="card-body">
+                            <h5 class="card-title">Smart Home Automation</h5>
+                            <p class="card-text">Automated room appliances using face detection (RPi/NCS2) and Google Assistant integration.</p>
+                            <div class="card-tags">
+                                <span class="badge">IoT</span> <span class="badge">OpenCV</span> <span class="badge">Embedded</span> <span class="badge">C</span> <span class="badge">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project Item 14: Impaired Chair (Robotics/IoT) -->
+                 <div class="col-lg-4 col-md-6 project-item robotics" data-aos="fade-up" data-aos-delay="850">
+                    <div class="card project-card-new">
+                        <img src="images/cha.jpg" class="card-img-top" alt="Chair for Impaired">
+                        <div class="card-body">
+                            <h5 class="card-title">Automated Chair for Impaired</h5>
+                            <p class="card-text">Assists physically impaired individuals with mobility and control of home appliances via an automated chair.</p>
+                            <div class="card-tags">
+                                <span class="badge">Embedded Systems</span> <span class="badge">C</span> <span class="badge">IoT</span> <span class="badge">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  Car Design Generation
-                </div>
-                <img src="images/car.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">The main task was to build a model that completely generates new car designs for Automobile industry. The data was fed into GAN (generator and descriminator network) which yielded the car design. The same model can applied to design a new Dress. </p>
-                </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Skills Used : Keras, Skimage, Pandas,Python</strong></li>
-                  
-                </ul>
-            </div>
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  Udacity Intel Edge AI Projects
-                </div>
-                <img src="images/udacity.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">Developed various projects like "People Counter APP", "Smart Queuing System", "Computer Pointer Controller" on devices like FPGA, VPU, GPU and CPU using OpenVINO toolkit.</p>
-                </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Skills Used : OpenCV, MQTT, Python </strong></li>
-                  
-                </ul>
-            </div>
+        </div>
+    </section>
 
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-              <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                Shelves Product Detector
-              </div>
-              <img src="images/shelves.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text text-justify" style="padding: 20px;">FMCG(Fast-Moving Consumer Goods) brands require insights into retail shelves to help them improve their sales. One such insight comes from determining how many products of their brands’ are present versus how many products of competing brands are present on a retail store shelf. Transfer learning was performed on SSD MobileNet V2 to detect and localize the objects</p>
-              </div>
-              <ul class="list-group list-group-flush" style="padding: 20px;">
-                <li class="list-group-item"><strong>Skills Used : Tensorflow, OpenCV, Numpy, Pandas, Python</strong></li>
-                
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="tab-pane" id="robotics" role="tabpanel">
-        <div class="ml-auto mr-auto">
-          <div class="card-columns">
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-              <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                SPY Bot
-              </div>
-              <img src="images/spy.jpeg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text text-justify" style="padding: 20px;">The main task was to build a All-Terrain bot which can be deployd in military having VR(360) view capabilities. Accelerometer and Gyroscope sensor values that map our head movements were sent to the RPi and Pan/Tilt was used to move the camera. It had features like weapons detection, people counter and self destruction</p>
-              </div>
-              <ul class="list-group list-group-flush" style="padding: 20px;">
-                <li class="list-group-item"><strong>Skills Used : Robotics, VR, IoT, Python, C</strong></li>
-                
-              </ul>
-            </div>
-
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  Vision for Impaired
-                </div>
-                <img src="images/vi.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">The main task was to set up a whole system which can be helpful to Visually Impaired. The camera inputs about the various things around a person and tells him using a earphone. YOLOV2 was used to implement the object detection and localization.</p>
-                </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Skills Used : Computer Vision, Embedded Systems, Python, IOT</strong></li>
-                  
-                </ul>
-            </div>
-
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-                <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                  Home Automation
-                </div>
-                <img src="images/home.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text text-justify" style="padding: 20px;">The main task was to automate my room lights and fan. Raspberry pi and NCS2 was used to detect my face when I enter the room and turn on appliances. Google Assistant was integrated with Adafruit to perform communication around the world</p>
-                </div>
-                <ul class="list-group list-group-flush" style="padding: 20px;">
-                  <li class="list-group-item"><strong>Skills Used : Embedded Systems, IoT, OpenCV, C</strong></li>
-                  
-                </ul>
-            </div>
-
-            <div class="card" style="width: 100%; box-shadow: -1px 10px 11px -6px rgba(0,0,0,0.5)">
-              <div class="card-header" style="text-align: center; font-size: 20px; background-color: green; color: white;">
-                Chair for Impared
-              </div>
-              <img src="images/cha.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text text-justify" style="padding: 20px;">The main task was to help physically impared to move around. The chair has automation capabilities which can be used to turn on lights and fans.</p>
-              </div>
-              <ul class="list-group list-group-flush" style="padding: 20px;">
-                <li class="list-group-item"><strong>Skills Used : Embedded Systems, C, IoT, Python</strong></li>
-                
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="section">
-  <div class="container cc-education">
-    <div class="h4 text-center mb-4 title">Licenses & Certifications</div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-education-header">
-            <p>May 2024</p>
-            <div class="h5">Generative AI with Large Language Models</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Deep Learning.ai</div>
-            <p class="category">Coursera</p>
-            <p> -Prompting and prompt engineering.</br> -Generative AI project lifecycle.</br>
- -Pre-training large language models.</br> -Multi-task instruction fine-tuning.</br> -PEFT techniques: LoRA and Soft prompts</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-education-header">
-            <p>April 2020</p>
-            <div class="h5">Deep Learning Specialization</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Deep Learning.ai</div>
-            <p class="category">Coursera</p>
-            <p> -Neural Networks and Deeplearning.</br> -Improving Deep Neural Networks : Hyperarameter tuning, Regularization and Optimization.</br>
- -Structuring Machine Learning Projects.</br> -Convolutional Neural Networks.</br> -Sequence Models.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-education-header">
-            <p>May 2020</p>
-            <div class="h5">Tensorflow in Practice</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Deep Learning.ai</div>
-            <p class="category">Coursera</p>
-            <p> -Introduction to Tensorflow.</br> -Convolutional Neural Networks in Tensorflow.</br>
- -Sequences, Time Series and Prediction.</br> -Natural Language Processing in Tensorflow.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-education-header">
-            <p>Feb 2020</p>
-            <div class="h5">Deep Learning A-Z</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">SuperDataScience</div>
-            <p class="category">Udemy</p>
-            <p> -Artificial Neural Networks.</br> -Convolutional Neural Networks.</br>
- -Recurent Neural Networks.</br> -Self Organizing Maps.</br> -Boltzman Machines.</br> -Auto Encoders.</p>
-          </div>
-        </div>
-      </div>
-    </div>
- <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body cc-education-header">
-            <p>June 2017</p>
-            <div class="h5">Robotics</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-          <div class="card-body" style="background-color: #fafaf6;">
-            <div class="h5">Lema Labs</div>
-            <p class="category">Chennai</p>
-            <p> -Kaizen Robotics Level 1.</br> -Kaizen Robotics Level 2.</br>
- -Internet of Things using NodeMCU.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="section" id="reference">
-  <div class="container cc-reference">
-    <div class="h4 mb-4 text-center title">References</div>
-    <div class="card" data-aos="zoom-in">
-      <div class="carousel slide" id="cc-Indicators" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li class="active" data-target="#cc-Indicators" data-slide-to="0"></li>
-          <li data-target="#cc-Indicators" data-slide-to="1"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
+    <!-- Education & Certifications Section -->
+    <section class="section section-grey" id="education">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Education & Certifications</h2>
             <div class="row">
-              <div class="col-lg-2 col-md-3 cc-reference-header"><img src="images/sudharshan.jpg" alt="Image"/>
-              </div>
-              <div class="col-lg-10 col-md-9">
-                <p> Piyush is the go to guy in SVCE for mentoring DL projects. He has developed a commendable number of projects in Robotics also. His interest to help empower other students was apparent in his active contribution in creating the Robotics and AI club of our college, as a sophomore. More than 50 students benefitted from the same. I have known Piyush for 3 years. According to my assessment as SVCE President, he is amongst the top 1% of students in college. Piyush has my strongest recommendation for his technical skills in the aforementioned Robotics/DL domains, and as a student leader/mentor.</p>
-                <div class="h5 pt-2">Sudarsshan Krishna</div>
-                <p class="category">President, SVCE Student Council</p><br><br>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="row">
-              <div class="col-lg-2 col-md-3 cc-reference-header"><img src="images/joythi.jpg" alt="Image"/>
-              </div>
-              <div class="col-lg-10 col-md-9">
-                <p> Piyush M is a highly knowledgeable, articulate and zealous student. Not many people could be as active, creative and proficient as him. He possesses a lot of fine skills and used to participate in a lot technical events and cultural events. He has a very bright future. He would be such a valuable asset and I highly recommend him.</p>
-                <div class="h5 pt-2">Dr. Jothilakshmi P</div>
-                <p class="category">Professor at SVCE</p>
-                <br><br>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="section" id="contact">
-  <div class="cc-contact-information" style="background-image: url('images/staticmap.jpg'); background-size: cover; background-repeat: no-repeat;">
-    <div class="container">
-      <div class="cc-contact">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="card mb-0" data-aos="zoom-in">
-              <div class="h4 text-center title">Contact Me</div>
-              <div class="row text-center ">
-                <div class="col-md-6 mx-auto">
-                  <div class="card-body">
-                    <p class="mb-0"><strong>Address </strong></p>
-                    <p class="pb-2">Berlin, Germany</p>
-                    <p class="mb-0"><strong>Phone</strong></p>
-                    <p class="pb-2">+358 40 1921255</p>
-                    <p class="mb-0"><strong>Email</strong></p>
-                    <p>piyush.pungalia05@gmail.com</p>
-                  </div>
+                <!-- Education Column -->
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h3 class="text-center mb-4" data-aos="fade-up" data-aos-delay="100">Education</h3>
+                    <div class="education-item" data-aos="fade-right" data-aos-delay="200">
+                        <div class="item-header">
+                            <h4 class="item-title">M.Sc. ML & Autonomous Systems</h4>
+                            <span class="item-date">2021 - 2023</span>
+                        </div>
+                        <p class="item-institution">Technische Universität Berlin & Aalto University</p>
+                        <p class="item-description"><strong>Key Courses:</strong> Machine Learning, NLP, Computer Vision, Robotics, Parallel Programming, Deep Learning.</p>
+                    </div>
+                    <div class="education-item" data-aos="fade-right" data-aos-delay="300">
+                        <div class="item-header">
+                            <h4 class="item-title">B.E. Electronics & Communication</h4>
+                            <span class="item-date">2017 - 2021</span>
+                        </div>
+                        <p class="item-institution">Sri Venkateshwara College of Engineering</p>
+                        <p class="item-description">Focused on Robotics & Embedded Systems. <strong>Key Courses:</strong> Digital Image Processing, DSP, Data Structures, Robotics, Statistics.</p>
+                    </div>
                 </div>
-              </div>
+                 <!-- Certifications Column -->
+                <div class="col-lg-6">
+                    <h3 class="text-center mb-4" data-aos="fade-up" data-aos-delay="150">Certifications</h3>
+                    <div class="certification-item" data-aos="fade-left" data-aos-delay="250">
+                        <div class="item-header">
+                            <h5 class="item-title">Generative AI with LLMs</h5>
+                            <span class="item-date">May 2024</span>
+                        </div>
+                        <p class="item-institution">DeepLearning.AI (Coursera)</p>
+                        <p class="item-description small">Prompting, GenAI lifecycle, Pre-training, Fine-tuning (PEFT, LoRA).</p>
+                    </div>
+                    <div class="certification-item" data-aos="fade-left" data-aos-delay="350">
+                        <div class="item-header">
+                            <h5 class="item-title">Deep Learning Specialization</h5>
+                             <span class="item-date">Apr 2020</span>
+                        </div>
+                        <p class="item-institution">DeepLearning.AI (Coursera)</p>
+                         <p class="item-description small">NNs, Tuning, Optimization, ML Projects, CNNs, Sequence Models.</p>
+                    </div>
+                    <div class="certification-item" data-aos="fade-left" data-aos-delay="450">
+                         <div class="item-header">
+                            <h5 class="item-title">Tensorflow in Practice</h5>
+                             <span class="item-date">May 2020</span>
+                        </div>
+                        <p class="item-institution">DeepLearning.AI (Coursera)</p>
+                        <p class="item-description small">Intro to TF, CNNs, Sequences/Time Series, NLP in TF.</p>
+                    </div>
+                     <div class="certification-item" data-aos="fade-left" data-aos-delay="550">
+                        <div class="item-header">
+                             <h5 class="item-title">Deep Learning A-Z™</h5>
+                             <span class="item-date">Feb 2020</span>
+                        </div>
+                        <p class="item-institution">SuperDataScience (Udemy)</p>
+                        <p class="item-description small">ANN, CNN, RNN, SOM, Boltzmann Machines, Autoencoders.</p>
+                    </div>
+                    <div class="certification-item" data-aos="fade-left" data-aos-delay="650">
+                         <div class="item-header">
+                             <h5 class="item-title">Robotics Certifications</h5>
+                             <span class="item-date">Jun 2017</span>
+                        </div>
+                        <p class="item-institution">Lema Labs (Chennai)</p>
+                        <p class="item-description small">Kaizen Robotics Levels 1 & 2, IoT using NodeMCU.</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div></div>
-    </div>
+    </section>
+
+    <!-- References Section -->
+    <section class="section" id="references">
+         <div class="container">
+            <h2 class="section-title" data-aos="fade-up">References</h2>
+             <div id="referenceCarousel" class="carousel slide reference-carousel" data-ride="carousel" data-aos="fade-up" data-aos-delay="100">
+                 <ol class="carousel-indicators">
+                     <li data-target="#referenceCarousel" data-slide-to="0" class="active"></li>
+                     <li data-target="#referenceCarousel" data-slide-to="1"></li>
+                 </ol>
+                 <div class="carousel-inner">
+                     <div class="carousel-item active">
+                         <div class="reference-img">
+                             <img src="images/sudharshan.jpg" alt="Sudarsshan Krishna"/>
+                         </div>
+                         <p class="reference-text">"Piyush is the go-to guy in SVCE for mentoring DL projects... developed a commendable number of projects in Robotics also... amongst the top 1% of students in college. Piyush has my strongest recommendation..."</p>
+                         <h5 class="reference-author">Sudarsshan Krishna</h5>
+                         <p class="reference-title">President, SVCE Student Council</p>
+                     </div>
+                     <div class="carousel-item">
+                        <div class="reference-img">
+                            <img src="images/joythi.jpg" alt="Dr. Jothilakshmi P"/>
+                        </div>
+                         <p class="reference-text">"Piyush M is a highly knowledgeable, articulate and zealous student... active, creative and proficient... He has a very bright future. He would be such a valuable asset and I highly recommend him."</p>
+                         <h5 class="reference-author">Dr. Jothilakshmi P</h5>
+                         <p class="reference-title">Professor at SVCE</p>
+                    </div>
+                 </div>
+                 <!-- Optional Carousel Controls -->
+                 <!-- <a class="carousel-control-prev" href="#referenceCarousel" role="button" data-slide="prev">
+                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                     <span class="sr-only">Previous</span>
+                 </a>
+                 <a class="carousel-control-next" href="#referenceCarousel" role="button" data-slide="next">
+                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                     <span class="sr-only">Next</span>
+                 </a> -->
+            </div>
+         </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <div class="row">
+                <div class="col-lg-6 mx-auto text-center">
+                    <p class="lead mb-5" data-aos="fade-up" data-aos-delay="100">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out!</p>
+
+                    <div data-aos="fade-up" data-aos-delay="200">
+                         <div class="contact-info-item">
+                             <i class="fa fa-map-marker"></i>
+                             <p><strong>Location</strong> Berlin, Germany</p>
+                         </div>
+                         <div class="contact-info-item">
+                            <i class="fa fa-phone"></i>
+                             <p><strong>Phone</strong> <a href="tel:+358401921255">+358 40 1921255</a></p>
+                         </div>
+                         <div class="contact-info-item">
+                            <i class="fa fa-envelope"></i>
+                            <p><strong>Email</strong> <a href="mailto:piyush.pungalia05@gmail.com">piyush.pungalia05@gmail.com</a></p>
+                         </div>
+                    </div>
+
+                     <div class="social-links-contact mt-4" data-aos="fade-up" data-aos-delay="300">
+                         <a href="https://www.linkedin.com/in/piyush0511/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                         <a href="https://github.com/piyush0511" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa fa-github"></i></a>
+                         <!-- Add other relevant social links here -->
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            &copy; <script>document.write(new Date().getFullYear())</script> Piyush Mahendra Kumar. All Rights Reserved.
+            <br> Designed with <i class="fa fa-heart text-danger"></i>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="js/core/jquery.3.2.1.min.js"></script>
     <script src="js/core/popper.min.js"></script>
     <script src="js/core/bootstrap.min.js"></script>
-    <script src="js/now-ui-kit.js?v=1.1.0"></script>
     <script src="js/aos.js"></script>
-    <script src="scripts/main.js"></script>
+    <!-- Optional: Add Isotope for filtering if needed -->
+    <!-- <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script> -->
+
     <script>
-      var words = ["Deep Learning",
-                "Computer Vision",
-                "Robotics"
-                ];
+      $(document).ready(function() {
+          // Initialize AOS
+          AOS.init({
+              duration: 800, // Animation duration
+              easing: 'ease-in-out', // Animation timing function
+              once: true, // Animate elements only once
+              offset: 50 // Offset (in px) from the original trigger point
+          });
 
-                var i = 0;
-
+          // Text Slider Script
+          var words = [
+              "Deep Learning Engineer",
+              "Computer Vision Specialist",
+              "Robotics Enthusiast",
+              "MLOps Practitioner"
+          ];
+          var i = 0;
+          var textSlideElement = $("#textslide");
+          if (textSlideElement.length) { // Check if element exists
                 setInterval(function() {
-                    $("#textslide").html(words[i]);
-                    if (i == words.length)
-                        i=0;
-                    else
-                        i++;
-                },0.7*1000);
+                    textSlideElement.fadeOut(function() {
+                        $(this).html(words[i = (i + 1) % words.length]).fadeIn();
+                    });
+                }, 2500); // Slightly slower interval
+          }
 
+          // Navbar shrink function
+          function navbarShrink() {
+            const navbarCollapsible = document.body.querySelector('#navbar-main');
+            if (!navbarCollapsible) {
+                return;
+            }
+            if (window.scrollY === 0) {
+                navbarCollapsible.classList.remove('navbar-shrink');
+            } else {
+                navbarCollapsible.classList.add('navbar-shrink');
+            }
+          }
+          // Shrink the navbar
+          navbarShrink();
+          // Shrink the navbar when page is scrolled
+          document.addEventListener('scroll', navbarShrink);
 
+          // Activate Bootstrap scrollspy on the main nav element
+            const mainNav = document.body.querySelector('#navbar-main');
+            if (mainNav) {
+                new bootstrap.ScrollSpy(document.body, {
+                    target: '#navbar-main',
+                    offset: 80, // Adjust based on navbar height when shrunk
+                });
+            };
+
+          // Collapse responsive navbar when toggler is visible
+          const navbarToggler = document.body.querySelector('.navbar-toggler');
+          const responsiveNavItems = [].slice.call(
+              document.querySelectorAll('#navigation .nav-link')
+          );
+          responsiveNavItems.map(function (responsiveNavItem) {
+              responsiveNavItem.addEventListener('click', () => {
+                  if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                      navbarToggler.click();
+                  }
+              });
+          });
+
+          // Project Filtering (Requires Isotope - uncomment script tag above)
+           /*
+           var $gallery = $('.project-gallery').isotope({
+                itemSelector: '.project-item',
+                layoutMode: 'fitRows'
+            });
+
+            $('.project-filters').on('click', 'button', function() {
+                var filterValue = $(this).attr('data-filter');
+                 // Add 'active' class to the clicked button and remove from others
+                $('.project-filters button').removeClass('active');
+                $(this).addClass('active');
+                // Apply filter
+                if(filterValue == 'all') {
+                     $gallery.isotope({ filter: '*' });
+                } else {
+                     $gallery.isotope({ filter: '.' + filterValue });
+                }
+            });
+            */
+            // Simple Show/Hide Filtering (if Isotope is not used)
+             $('.project-filters button').on('click', function() {
+                var filterValue = $(this).attr('data-filter');
+                $('.project-filters button').removeClass('active');
+                $(this).addClass('active');
+
+                if (filterValue == 'all') {
+                    $('.project-item').show(400); // Use show/hide or fadeIn/fadeOut
+                } else {
+                    $('.project-item').hide(400);
+                    $('.project-item.' + filterValue).show(400);
+                }
+            });
+
+      });
     </script>
-  </body>
+</body>
 </html>
